@@ -3,13 +3,13 @@ var inquirer = require("inquirer");
 
 require('dotenv').config()
 
-const password = process.env.DB_password
+ 
 
 const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: password,
+    password: process.env.DB_password,
     database: "employee_DB"
   });
 
@@ -17,3 +17,9 @@ const connection = mysql.createConnection({
     if (err) throw err;
     console.log("connected as id "+ connection.threadId + "\n");
 })
+
+/* function start() {
+    inquirer.prompt({
+
+    })
+} */
