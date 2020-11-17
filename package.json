@@ -1,0 +1,24 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "CLI Application to track your current employees",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dchiev/Employee-Tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dchiev/Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/dchiev/Employee-Tracker#readme",
+  "dependencies": {
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  }
+}
