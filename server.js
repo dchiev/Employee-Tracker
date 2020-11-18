@@ -1,4 +1,3 @@
-
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 var cTable = require("console.table");
@@ -18,8 +17,6 @@ connection.connect(function (err) {
   console.log("connected as id " + connection.threadId + "\n");
   start();
 });
-
-
 
 function start() {
   inquirer
@@ -80,7 +77,10 @@ function viewEmployees() {
 }
 
 function viewRoles() {
-  let query = "SELECT * FROM roles";
+  let query = `SELECT r.id, r.title, r.salary, r.department_id
+  FROM roles AS r
+  LEFT JOIN department AS d
+  ON r.department_id = d.id`;
   connection.query(query, function (err, res) {
     if (err) throw err;
     console.table(res);
@@ -89,7 +89,7 @@ function viewRoles() {
 }
 
 function viewDepartments() {
-  let query = `SELECT d.id, d.name, r.salary
+  let query = `SELECT d.id, d.department_name, r.salary
               FROM department AS d
               LEFT JOIN roles AS r
               ON d.id = r.department_id`;
@@ -122,20 +122,21 @@ function addEmployee() {
     ])
     .then(function (answers) {
       console.log(answers);
-      var role;
-      switch
-      role=1:
       var newEmployeeData = {
-        "first_name": answers.firstName,
-        "last_name": answers.lastName,
-        "role_id": role
+        first_name: answers.firstName,
+        last_name: answers.lastName,
+        role_id: 1,
       };
-      
-      connection.query(`INSERT INTO employees SET ?`, newEmployeeData, function (err, res) {
-        console.log("Success!");
-        start();
-    ;
-    });
-})};
 
-//determine department ID with switch case 
+      connection.query(
+        `INSERT INTO employees SET ?`,
+        newEmployeeData,
+        function (err, res) {
+          console.log("Success!");
+          start();
+        }
+      );
+    });
+}
+
+//determine department ID with switch case
