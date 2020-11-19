@@ -167,6 +167,7 @@ function addDepartment() {
         `INSERT INTO department SET ?`,
         newDepartmentData,
         function (err, res) {
+          if (err) throw err;
           console.log("Success!");
           viewDepartments();
         }
@@ -200,6 +201,7 @@ function addRole(){
       `INSERT INTO roles SET ?`,
       newRoleData,
       function (err, res) {
+        if (err) throw err;
         console.log("Success!");
         viewRoles();
       }
