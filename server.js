@@ -214,7 +214,6 @@ function updateEmployeeRole() {
                     FROM employees 
                     JOIN roles 
                     ON employees.role_id = roles.id`, function(err, res) {
-  // console.log(res)
    if (err) throw err
    console.log(res)
   inquirer.prompt([
