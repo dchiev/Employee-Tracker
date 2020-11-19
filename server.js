@@ -31,7 +31,7 @@ function start() {
         "Add Employee",
         "Add Department",
         "Add Role",
-        "Update Employee Roles",
+        "Update Employee Role",
         "Exit",
       ],
     })
@@ -50,6 +50,15 @@ function start() {
           break;
         case "Add Employee":
           addEmployee();
+          break;
+        case "Add Department":
+          addDepartment();
+          break;
+        case "Add Role":
+          addRole();
+          break;
+        case "Update Employee Role":
+          updateEmployeeRole();
           break;
         case "Exit":
           console.log("You've Exit the application!");
@@ -133,10 +142,67 @@ function addEmployee() {
         newEmployeeData,
         function (err, res) {
           console.log("Success!");
-          start();
+          viewEmployees();
         }
       );
     });
 }
 
-//determine department ID with switch case
+function addDepartment() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "department",
+        message: "What is the department name?",
+      }
+    ])
+    .then(function (answers) {
+      console.log(answers);
+      var newDepartmentData = {
+        department_name: answers.department,
+      };
+
+      connection.query(
+        `INSERT INTO department SET ?`,
+        newDepartmentData,
+        function (err, res) {
+          console.log("Success!");
+          viewDepartments();
+        }
+      );
+    });
+};
+
+function addRole(){
+  inquirer
+  .prompt([
+    {
+      type: "input",
+      name: "title",
+      message: "What is the role's title?",
+    },
+    {
+      type: "input",
+      name: "salary",
+      message: "How much does this role make?",
+    }
+  ])
+  .then(function (answers) {
+    console.log(answers);
+    var newRoleData = {
+      title: answers.title,
+      salary:answers.salary,
+      department_id: 4
+    };
+
+    connection.query(
+      `INSERT INTO roles SET ?`,
+      newRoleData,
+      function (err, res) {
+        console.log("Success!");
+        viewRoles();
+      }
+    );
+  });
+}
