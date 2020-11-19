@@ -205,4 +205,47 @@ function addRole(){
       }
     );
   });
+};
+
+function updateEmployeeRole() {
+  connection.query(`SELECT employees.last_name, roles.title 
+                    FROM employees 
+                    JOIN roles 
+                    ON employees.role_id = roles.id`, function(err, res) {
+  // console.log(res)
+   if (err) throw err
+   console.log(res)
+  inquirer.prompt([
+        {
+          name: "lastName",
+          type: "list",
+          choices: function() {
+            var lastName = [];
+            for (var i = 0; i < res.length; i++) {
+              lastName.push(res[i].last_name);
+            }
+            return lastName;
+          },
+          message: "What is the Employee's last name? ",
+        },
+        {
+          name: "role",
+          type: "input",
+          message: "What is the Employees new title? ",
+        },
+    ]).then(function(res) {
+      connection.query("UPDATE employee SET WHERE ?", 
+      {
+        last_name: res.lastName
+     
+      }, 
+      function(err){
+          if (err) throw err
+          console.table(res)
+          viewEmployees()
+      })
+
+  });
+});
+
 }
